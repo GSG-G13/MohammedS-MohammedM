@@ -1,16 +1,16 @@
-let pop = document.querySelector('.pop');
-let overlay = document.getElementById('overlay');
+/* eslint linebreak-style: ["error", "windows"] */
+const pop = document.querySelector('.pop');
+const overlay = document.getElementById('overlay');
 const container = document.querySelector('.container');
 const searchInput = document.getElementById('champion');
 const btn = document.querySelector('.search-btn');
 
-
-let DOMPopup = (item) => {
-  let popup = document.createElement('div');
+const DOMPopup = (item) => {
+  const popup = document.createElement('div');
   popup.className = 'popup';
   pop.appendChild(popup);
 
-  let close = document.createElement('i');
+  const close = document.createElement('i');
   close.className = 'fa-solid fa-xmark';
   close.id = 'close';
   popup.appendChild(close);
@@ -20,61 +20,60 @@ let DOMPopup = (item) => {
     overlay.style.display = 'none';
   });
 
-  let imgDiv = document.createElement('div');
+  const imgDiv = document.createElement('div');
   imgDiv.className = 'image';
   popup.appendChild(imgDiv);
 
-  let img = document.createElement('img');
+  const img = document.createElement('img');
   img.src = `https://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${item.image.full}`;
   imgDiv.appendChild(img);
 
-  let cName = document.createElement('h2');
+  const cName = document.createElement('h2');
   cName.className = 'name';
   cName.textContent = item.name;
   popup.appendChild(cName);
 
-  let title = document.createElement('h3');
+  const title = document.createElement('h3');
   title.className = 'title';
   title.textContent = item.title;
   popup.appendChild(title);
 
-  let box = document.createElement('div');
+  const box = document.createElement('div');
   box.className = 'box';
   box.textContent = `Attack:${item.info.attack},Defense:${item.info.defense},Magic:${item.info.magic}`;
   popup.appendChild(box);
 
-  let details = document.createElement('p');
+  const details = document.createElement('p');
   details.className = 'details';
   details.textContent = item.blurb;
   popup.appendChild(details);
 };
 
-
 const handleDom = (data) => {
   container.textContent = '';
-  let arrayData = Object.entries(data).map((entry) => entry[1]);
-  arrayData.forEach(ele => {
+  const arrayData = Object.entries(data).map((entry) => entry[1]);
+  arrayData.forEach((ele) => {
     const box = document.createElement('div');
     box.className = 'box';
     container.appendChild(box);
-  
+
     const boxImg = document.createElement('div');
     boxImg.className = 'box-img';
     box.appendChild(boxImg);
-  
+
     const img = document.createElement('img');
     img.src = `https://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${ele.image.full}`;
     boxImg.appendChild(img);
-  
+
     const content = document.createElement('div');
     content.className = 'content';
     box.appendChild(content);
-  
+
     const champName = document.createElement('h3');
     champName.className = 'champ-name';
     champName.textContent = ele.name;
     content.appendChild(champName);
-  
+
     const more = document.createElement('button');
     more.className = 'more';
     more.textContent = 'more details';
@@ -89,24 +88,22 @@ const handleDom = (data) => {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     });
-  })
+  });
 };
 
 const fetchData = () => {
   fetch('/getChamp')
-.then((res) => res.json())
-.then((champData) => handleDom(champData.data))
-.catch((error) => console.log(error));
-}
+    .then((res) => res.json())
+    .then((champData) => handleDom(champData.data))
+    .catch((error) => console.log(error));
+};
 
 fetchData();
 
-btn.addEventListener('click', (e)=> {
-  e.preventDefault()
+btn.addEventListener('click', (e) => {
+  e.preventDefault();
   fetch(`/getChamp/${searchInput.value}`)
-  .then((res) => res.json())
-  .then((champData) => {
-    handleDom(champData.data)
-  })
-  .catch((error) => console.log(error));
-})
+    .then((res) => res.json())
+    .then((champData) => handleDom(champData.data))
+    .catch((error) => console.log(error));
+});

@@ -1,7 +1,8 @@
+/* eslint linebreak-style: ["error", "windows"] */
 const express = require('express');
 
 const router = express.Router();
-const { getData,searchData } = require('./champ');
+const { getData, searchData } = require('./champ');
 const { clientError, serverError } = require('./error');
 
 router.get('/getChamp', getData);
