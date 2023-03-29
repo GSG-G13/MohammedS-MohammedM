@@ -1,4 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const { router } = require('./controllers/index');
