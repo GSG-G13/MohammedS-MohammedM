@@ -1,3 +1,4 @@
+/* eslint linebreak-style: ["error", "windows"] */
 const getData = (req, res) => {
   fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
     .then((response) => response.json())
@@ -12,4 +13,4 @@ const searchData = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-module.exports = { getData,searchData };
+module.exports = { getData, searchData };
