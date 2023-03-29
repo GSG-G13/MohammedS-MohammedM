@@ -1,5 +1,9 @@
 let pop = document.querySelector('.pop');
 let overlay = document.getElementById('overlay');
+const container = document.querySelector('.container');
+const searchInput = document.getElementById('champion');
+const btn = document.querySelector('.search-btn');
+
 
 let DOMPopup = (item) => {
   let popup = document.createElement('div');
@@ -46,9 +50,8 @@ let DOMPopup = (item) => {
 };
 
 
-const container = document.querySelector('.container');
-
 const handleDom = (data) => {
+  container.textContent = '';
   let arrayData = Object.entries(data).map((entry) => entry[1]);
   arrayData.forEach(ele => {
     const box = document.createElement('div');
@@ -89,9 +92,21 @@ const handleDom = (data) => {
   })
 };
 
-fetch('/getChamp')
-  .then((res) => res.json())
-  .then((data) => data.data)
-  .then((champData) => handleDom(champData))
-  .catch((error) => console.log(error));
+const fetchData = () => {
+  fetch('/getChamp')
+.then((res) => res.json())
+.then((champData) => handleDom(champData.data))
+.catch((error) => console.log(error));
+}
 
+fetchData();
+
+btn.addEventListener('click', (e)=> {
+  e.preventDefault()
+  fetch(`/getChamp/${searchInput.value}`)
+  .then((res) => res.json())
+  .then((champData) => {
+    handleDom(champData.data)
+  })
+  .catch((error) => console.log(error));
+})
