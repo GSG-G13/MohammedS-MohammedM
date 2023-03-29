@@ -92,7 +92,7 @@ const handleDom = (data) => {
 };
 
 const fetchData = () => {
-  fetch('/getChamp')
+  fetch('/getChampion')
     .then((res) => res.json())
     .then((champData) => handleDom(champData.data))
     .catch((error) => console.log(error));
@@ -102,7 +102,7 @@ fetchData();
 
 btn.addEventListener('click', (e) => {
   e.preventDefault();
-  fetch(`/getChamp/${searchInput.value}`)
+  fetch(`/getChampion/${searchInput.value}`)
     .then((res) => res.json())
     .then((champData) => handleDom(champData.data))
     .catch((error) => console.log(error));
